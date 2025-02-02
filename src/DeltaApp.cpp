@@ -1,5 +1,6 @@
-#include "../include/DeltaMain.hpp"
+#include "../include/DeltaApp.hpp"
 #include "../include/DeltaFrame.hpp"
+
 
 bool DeltaApp::OnInit() {
   DeltaFrame* delta_frame = new DeltaFrame();
@@ -7,5 +8,7 @@ bool DeltaApp::OnInit() {
   return true;
 }
 
+
 wxIMPLEMENT_APP(DeltaApp);
+
 
