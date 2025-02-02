@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(DeltaPractice)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# find wxwidgets
+find_package(wxWidgets REQUIRED COMPONENTS core base)
+
+include(${wxWidgets_USE_FILE})
+
+# add source files
+file(GLOB SOURCES "src/*.cpp")
+
+add_executable(DeltaPractice ${SOURCES})
+
+# link wx libraries
+target_link_libraries(DeltaPractice ${wxWidgets_LIBRARIES})
