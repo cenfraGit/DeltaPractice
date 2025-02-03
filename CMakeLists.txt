@@ -11,10 +11,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # find wxwidgets
 find_package(wxWidgets REQUIRED COMPONENTS core base)
 
+set(wxWidgets_USE_STATIC ON)
+add_definitions(-DwxUSE_GUI=1)
+
 include(${wxWidgets_USE_FILE})
 
 # add source files
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 add_executable(DeltaPractice ${SOURCES})
 

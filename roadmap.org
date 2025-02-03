@@ -1,0 +1,12 @@
+* DeltaPractice
+
+** Implement interfaces between file and objects
+** Implement problem context (only text)
+** Implement problem questions (only text)
+** Read practice from file
+** Add images to context
+** Add playing sounds to context
+** Add answer selection (combobox/radiobuttons)
+** Add multiple choice answers (checkboxes)
+
+** llama optional integration?

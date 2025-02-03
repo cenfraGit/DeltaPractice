@@ -1,12 +1,12 @@
-#ifndef H_DELTAFRAME
-#define H_DELTAFRAME
+#ifndef H_FRAMEHOME
+#define H_FRAMEHOME
 
 #include "wx/wx.h"
 
 
-class DeltaFrame : public wxFrame {
+class FrameHome : public wxFrame {
 public:
-  DeltaFrame();
+  FrameHome();
 private:
   void OnExit(wxCommandEvent& event);
   void OnStartSession(wxCommandEvent& event);

@@ -1,4 +1,5 @@
-#include "../include/FrameStartSession.hpp"
+#include "../../include/home/FrameStartPracticeSession.hpp"
+#include "../../include/practice/FramePractice.hpp"
 #include <wx/gdicmn.h>
 #include <wx/gtk/textctrl.h>
 #include <wx/wx.h>
@@ -6,7 +7,7 @@
 #include <wx/statbox.h>
 
 
-FrameStartSession::FrameStartSession(wxFrame* parent)
+FrameStartPracticeSession::FrameStartPracticeSession(wxFrame* parent)
   : wxFrame(parent, wxID_ANY, "Start Practice Session", wxPoint(100, 100), wxDefaultSize) {
 
   this->SetMinClientSize(wxSize(600, 400));
@@ -105,11 +106,18 @@ FrameStartSession::FrameStartSession(wxFrame* parent)
 
   /* ------------------------ events ------------------------ */
 
-  button_cancel->Bind(wxEVT_BUTTON, &FrameStartSession::OnExit, this);
+  button_start->Bind(wxEVT_BUTTON, &FrameStartPracticeSession::OnStart, this);
+  button_cancel->Bind(wxEVT_BUTTON, &FrameStartPracticeSession::OnExit, this);
 }
 
 
-void FrameStartSession::OnExit(wxCommandEvent& event) {
+void FrameStartPracticeSession::OnStart(wxCommandEvent& event) {
+  wxFrame* frame_practice = new FramePractice(this);
+  frame_practice->Show(true);
+}
+
+
+void FrameStartPracticeSession::OnExit(wxCommandEvent& event) {
     Close(true);
 }
 

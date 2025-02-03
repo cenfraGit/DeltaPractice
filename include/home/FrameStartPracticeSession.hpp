@@ -5,11 +5,12 @@
 #include <wx/listctrl.h>
 
 
-class FrameStartSession : public wxFrame {
+class FrameStartPracticeSession : public wxFrame {
   wxListCtrl* listctrl_practice_files;
 public:
-  FrameStartSession(wxFrame* parent);
+  FrameStartPracticeSession(wxFrame* parent);
 private:
+  void OnStart(wxCommandEvent& event);
   void OnExit(wxCommandEvent& event);
 };
 
