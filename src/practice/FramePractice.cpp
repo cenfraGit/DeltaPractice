@@ -1,4 +1,4 @@
-#include "../../include/practice/FramePractice.hpp"
+#include "practice/FramePractice.hpp"
 #include <wx/event.h>
 #include <wx/wx.h>
 #include <wx/scrolwin.h>

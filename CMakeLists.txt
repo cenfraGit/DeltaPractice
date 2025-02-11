@@ -1,25 +1,27 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 
 project(DeltaPractice)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-# compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(wxWidgets_USE_STATIC ON)
 
-# find wxwidgets
+add_definitions(-DwxUSE_GUI=1)
+#add_compile_definitions(_USE_MATH_DEFINES)
+
 find_package(wxWidgets REQUIRED COMPONENTS core base)
 
-set(wxWidgets_USE_STATIC ON)
-add_definitions(-DwxUSE_GUI=1)
-
+include_directories(include)
 include(${wxWidgets_USE_FILE})
 
-# add source files
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
-add_executable(DeltaPractice ${SOURCES})
+if (WIN32)
+    add_executable(DeltaPractice WIN32 ${SOURCES} delta.manifest)
+elseif (UNIX)
+    add_executable(DeltaPractice ${SOURCES})
+endif()
 
-# link wx libraries
-target_link_libraries(DeltaPractice ${wxWidgets_LIBRARIES})
+target_include_directories(DeltaPractice PRIVATE)
+target_link_libraries(DeltaPractice PRIVATE ${wxWidgets_LIBRARIES})

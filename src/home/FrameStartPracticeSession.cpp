@@ -1,7 +1,7 @@
-#include "../../include/home/FrameStartPracticeSession.hpp"
-#include "../../include/practice/FramePractice.hpp"
+#include "home/FrameStartPracticeSession.hpp"
+#include "practice/FramePractice.hpp"
 #include <wx/gdicmn.h>
-#include <wx/gtk/textctrl.h>
+#include <wx/textctrl.h>
 #include <wx/wx.h>
 #include <wx/gbsizer.h>
 #include <wx/statbox.h>

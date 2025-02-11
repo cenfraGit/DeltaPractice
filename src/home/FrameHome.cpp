@@ -1,7 +1,7 @@
-#include "../../include/home/FrameHome.hpp"
-#include "../../include/ids_enum.hpp"
+#include "home/FrameHome.hpp"
+#include "ids_enum.hpp"
 
-#include "../../include/home/FrameStartPracticeSession.hpp"
+#include "home/FrameStartPracticeSession.hpp"
 
 
 FrameHome::FrameHome()

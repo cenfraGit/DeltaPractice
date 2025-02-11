@@ -1,5 +1,5 @@
-#include "../include/AppDelta.hpp"
-#include "../include/home/FrameHome.hpp"
+#include "AppDelta.hpp"
+#include "home/FrameHome.hpp"
 
 
 bool AppDelta::OnInit() {
