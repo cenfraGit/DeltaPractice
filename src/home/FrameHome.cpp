@@ -7,7 +7,7 @@
 FrameHome::FrameHome()
   : wxFrame(nullptr, wxID_ANY, "Delta Practice") {
 
-  this->SetMinClientSize(wxSize(500, 500));
+  this->SetMinClientSize(this->FromDIP(wxSize(500, 500)));
   
   wxMenu *menuFile = new wxMenu;
   // menuFile->Append(ID_MENUBAR_FILE_PREFERENCES, "&Preferences...\tCtrl-H",

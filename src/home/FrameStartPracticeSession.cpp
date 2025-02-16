@@ -10,7 +10,7 @@
 FrameStartPracticeSession::FrameStartPracticeSession(wxFrame* parent)
   : wxFrame(parent, wxID_ANY, "Start Practice Session", wxPoint(100, 100), wxDefaultSize) {
 
-  this->SetMinClientSize(wxSize(600, 400));
+  this->SetMinClientSize(this->FromDIP(wxSize(600, 300)));
 
   wxPanel* panel_main = new wxPanel(this);
   wxGridBagSizer* sizer_main = new wxGridBagSizer();

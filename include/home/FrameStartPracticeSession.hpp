@@ -1,5 +1,4 @@
-#ifndef H_FRAMESTARTSESSION
-#define H_FRAMESTARTSESSION
+#pragma once
 
 #include <wx/wx.h>
 #include <wx/listctrl.h>
@@ -13,6 +12,3 @@ private:
   void OnStart(wxCommandEvent& event);
   void OnExit(wxCommandEvent& event);
 };
-
-
-#endif

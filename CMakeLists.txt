@@ -8,9 +8,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(wxWidgets_USE_STATIC ON)
 
 add_definitions(-DwxUSE_GUI=1)
-#add_compile_definitions(_USE_MATH_DEFINES)
 
-find_package(wxWidgets REQUIRED COMPONENTS core base)
+find_package(wxWidgets REQUIRED COMPONENTS core base webview)
 
 include_directories(include)
 include(${wxWidgets_USE_FILE})

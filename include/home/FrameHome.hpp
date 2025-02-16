@@ -1,5 +1,4 @@
-#ifndef H_FRAMEHOME
-#define H_FRAMEHOME
+#pragma once
 
 #include "wx/wx.h"
 
@@ -11,6 +10,3 @@ private:
   void OnExit(wxCommandEvent& event);
   void OnStartSession(wxCommandEvent& event);
 };
-
-
-#endif
