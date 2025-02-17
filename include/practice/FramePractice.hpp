@@ -5,11 +5,14 @@
 #include "custom_events.hpp"
 #include "practice/PageProblem.hpp"
 #include <wx/timer.h>
+#include <string>
 
 class FramePractice : public wxFrame {
 public:
-    FramePractice(wxFrame* parent);
+    FramePractice(wxFrame* parent, const std::string& path_practice, const int amount);
 private:
+    std::string m_path_practice;
+    int m_amount;
     wxPanel* panel_main;
     wxBoxSizer* sizer_main;
     wxPanel* panel_buttons;

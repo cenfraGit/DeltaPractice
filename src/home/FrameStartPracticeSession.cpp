@@ -112,8 +112,9 @@ FrameStartPracticeSession::FrameStartPracticeSession(wxFrame* parent)
 
 
 void FrameStartPracticeSession::OnStart(wxCommandEvent& event) {
-  wxFrame* frame_practice = new FramePractice(this);
-  frame_practice->Show(true);
+  //wxFrame* frame_practice = new FramePractice(this);
+  //frame_practice->Show(true);
+
 }
 
 

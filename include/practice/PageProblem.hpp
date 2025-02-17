@@ -1,6 +1,7 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <string>
 
 #if !wxUSE_WEBVIEW_WEBKIT && !wxUSE_WEBBIEW_WEBKIT2 && !wxUSE_WEBVIEW && !wxUSE_WEBVIEW_EDGE
 #error "A wxWebView backend is required"
@@ -9,7 +10,8 @@
 
 class PageProblem : public wxPanel {
 public:
-    PageProblem(wxWindow* parent, const wxString& content);
+    PageProblem(wxWindow* parent, const std::string& path);
 private:
     void OnScriptMessage(wxWebViewEvent& event);
+    void read_to_wxstring(const std::string& path, wxString& dest);
 };

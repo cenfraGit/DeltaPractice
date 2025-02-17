@@ -1,8 +1,11 @@
 #include "home/FrameHome.hpp"
 #include "ids_enum.hpp"
 
-#include "home/FrameStartPracticeSession.hpp"
+#include "practice/FramePractice.hpp"
 
+#include <wx/filedlg.h>
+#include <wx/textdlg.h>
+#include <wx/wx.h>
 
 FrameHome::FrameHome()
   : wxFrame(nullptr, wxID_ANY, "Delta Practice") {
@@ -35,14 +38,32 @@ FrameHome::FrameHome()
   Bind(wxEVT_MENU, &FrameHome::OnStartSession, this, ID_MENUBAR_PRACTICE_START);
 }
 
-
 void FrameHome::OnExit(wxCommandEvent &event) {
   Close(true);
 }
 
-
 void FrameHome::OnStartSession(wxCommandEvent& event) {
-  wxFrame* frame_start_session = new FrameStartPracticeSession(this);
-  frame_start_session->Show(true);
+
+	wxDirDialog dlg_directory(NULL, "Choose input directory", "",
+		wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
+
+	if (dlg_directory.ShowModal() == wxID_CANCEL)
+		return;
+
+	wxTextEntryDialog dlg_amount(this, "Amount:", "Enter problem amount:", "");
+
+	if (dlg_amount.ShowModal() == wxID_CANCEL)
+		return;
+
+	//wxLogMessage("%s %s", dlg_directory.GetPath(), dlg_amount.GetValue());
+
+	int amount = wxAtoi(dlg_amount.GetValue());
+
+	wxFrame* frame_practice = new FramePractice(this, 
+												dlg_directory.GetPath().ToStdString(),
+												amount);
+	frame_practice->Show(true);
+
+
 }
 
