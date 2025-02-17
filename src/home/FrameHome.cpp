@@ -1,7 +1,6 @@
 #include "home/FrameHome.hpp"
-#include "ids_enum.hpp"
-
 #include "practice/FramePractice.hpp"
+#include "ids_enum.hpp"
 
 #include <wx/filedlg.h>
 #include <wx/textdlg.h>
@@ -12,24 +11,18 @@ FrameHome::FrameHome()
 
   this->SetMinClientSize(this->FromDIP(wxSize(500, 500)));
   
-  wxMenu *menuFile = new wxMenu;
-  // menuFile->Append(ID_MENUBAR_FILE_PREFERENCES, "&Preferences...\tCtrl-H",
-  // 		   "");
-  // menuFile->AppendSeparator();
-  menuFile->Append(ID_MENUBAR_FILE_EXIT, "&Exit\tCtrl-Q",
-		   "Exit the program.");
+  wxMenu* menu_file = new wxMenu;
+  menu_file->Append(ID_MENUBAR_FILE_EXIT, "&Exit\tCtrl-Q", "Exit the program.");
   
-  wxMenu *menuPractice = new wxMenu;
-  menuPractice->Append(ID_MENUBAR_PRACTICE_START, "&Start practice session...",
-		       "");
-  menuPractice->Append(ID_MENUBAR_PRACTICE_EDIT, "&Edit practice files...",
-		       "");
+  wxMenu* menu_practice = new wxMenu;
+  menu_practice->Append(ID_MENUBAR_PRACTICE_START, "&Load practice files...", "");
+  menu_practice->Append(ID_MENUBAR_PRACTICE_EDIT, "&Create...", "");
  
-  wxMenuBar *menuBar = new wxMenuBar;
-  menuBar->Append(menuFile, "&File");
-  menuBar->Append(menuPractice, "&Practice");
+  wxMenuBar* menubar = new wxMenuBar;
+  menubar->Append(menu_file, "&File");
+  menubar->Append(menu_practice, "&Practice");
  
-  SetMenuBar(menuBar);
+  SetMenuBar(menubar);
  
   CreateStatusBar();
   SetStatusText("Welcome to Delta Practice.");
@@ -44,26 +37,29 @@ void FrameHome::OnExit(wxCommandEvent &event) {
 
 void FrameHome::OnStartSession(wxCommandEvent& event) {
 
-	wxDirDialog dlg_directory(NULL, "Choose input directory", "",
-		wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
+  wxDirDialog dlg_directory(NULL, "Choose input directory", "",
+			    wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
 
-	if (dlg_directory.ShowModal() == wxID_CANCEL)
-		return;
+  if (dlg_directory.ShowModal() == wxID_CANCEL)
+    return;
 
-	wxTextEntryDialog dlg_amount(this, "Amount:", "Enter problem amount:", "");
+  //wxTextEntryDialog dlg_amount(this, "Amount:", "Enter problem amount:", "");
 
-	if (dlg_amount.ShowModal() == wxID_CANCEL)
-		return;
+  //if (dlg_amount.ShowModal() == wxID_CANCEL)
+  //  return;
 
-	//wxLogMessage("%s %s", dlg_directory.GetPath(), dlg_amount.GetValue());
+  //wxLogMessage("%s %s", dlg_directory.GetPath(), dlg_amount.GetValue());
 
-	int amount = wxAtoi(dlg_amount.GetValue());
+  //int amount = wxAtoi(dlg_amount.GetValue());
 
-	wxFrame* frame_practice = new FramePractice(this, 
-												dlg_directory.GetPath().ToStdString(),
-												amount);
-	frame_practice->Show(true);
+  wxFrame* frame_practice = new FramePractice(this, 
+					      dlg_directory.GetPath().ToStdString());
+  frame_practice->Show(true);
+}
 
+void FrameHome::OnCreate(wxCommandEvent& event) {
 
+  
+  
 }
 
