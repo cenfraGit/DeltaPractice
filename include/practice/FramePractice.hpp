@@ -18,6 +18,7 @@ public:
   FramePractice(wxFrame* parent, const std::string& path_practicet);
 private:
   wxWebView* m_web;
+  int last_directory_index;
   std::vector<std::string> directories;
   std::string m_path_practice;
   wxString user_script = "";

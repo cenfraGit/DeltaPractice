@@ -135,6 +135,8 @@ void FramePractice::GoToNextProblem() {
                  resultText.textContent = 'Incorrect';
                  resultText.classList.add('indicator');
                  window.wx_msg.postMessage("false");
+                 alert("Answer: " + answerString);
+                 return;
              }
 
              var nextInput = answerInput.closest('.question-container').nextElementSibling?.querySelector('input');
@@ -176,7 +178,13 @@ void FramePractice::GoToNextProblem() {
          </html>
      )";
 
-   int randomIndex = dis(gen);
+   
+   // prevent same problem twice, needs at least two problems.
+   int randomIndex;
+   do { 
+     randomIndex = dis(gen);
+   } while (randomIndex == last_directory_index);
+   last_directory_index = randomIndex;
    std::string name_problem = directories[randomIndex];
 
    wxString user_html;
