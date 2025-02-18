@@ -1,4 +1,4 @@
-#include "practice/FramePractice.hpp"
+#include "FramePractice.hpp"
 #include "custom_events.hpp"
 #include <wx/wx.h>
 #include <filesystem>
@@ -74,7 +74,7 @@ void FramePractice::OnChangeProblem(wxCommandEvent& event) {
 
 void FramePractice::GoToNextProblem() {
 
-   wxString templateHTML = R"(
+  wxString templateHTML = R"(
          <!DOCTYPE html>
          <html>
          <head>
@@ -86,7 +86,20 @@ void FramePractice::GoToNextProblem() {
              <div id="user-generated-content"></div>
              <div id="container"></div>
              <script>
-             document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
+
+     window.randint = function(min, max) {
+       return Math.floor(Math.random() * (max - min + 1)) + min;
+     }
+
+     window.randfloat = function(min, max) {
+       return Math.random() * (max - min) + min;
+     }
+
+     window.choice = function(array) {
+       const index = Math.floor(Math.random() * array.length);
+       return array[index];
+     }
 
      let firstInputFocused = false;
 
@@ -127,7 +140,10 @@ void FramePractice::GoToNextProblem() {
          }
 
          function checkAnswer() {
-             if (answerInput.value === answerString) {
+             let input = answerInput.value.trim().toLowerCase();
+             let answer = answerString.trim().toLowerCase();
+             
+             if (input === answer) {
                  resultText.textContent = 'Correct';
                  resultText.classList.add('indicator');
                  window.wx_msg.postMessage("true");
@@ -169,10 +185,10 @@ void FramePractice::GoToNextProblem() {
                  checkAnswer();
              }
          });
-
      };
- });
-             </script>
+});
+</script>
+
              <script></script>
          </body>
          </html>
@@ -188,12 +204,22 @@ void FramePractice::GoToNextProblem() {
    std::string name_problem = directories[randomIndex];
 
    wxString user_html;
-   std::string path_html = name_problem + "\\problem.html";
-   read_to_wxstring(path_html, user_html);
-
+   //std::string path_html = name_problem + "/problem.html";
    
-   std::string path_js = name_problem + "\\user-script.js";
-   read_to_wxstring(path_js, user_script);
+   std::filesystem::path path_name_problem(name_problem);
+   
+   std::filesystem::path path_name_html("problem.html");
+   std::filesystem::path path_html = path_name_problem / path_name_html;
+   std::string path_html_str = path_html.string();
+   read_to_wxstring(path_html_str, user_html);
+
+
+   //wxString user_script;
+   std::filesystem::path path_name_js("user-script.js");
+   std::filesystem::path path_js = path_name_problem / path_name_js;
+   std::string path_js_str = path_js.string();
+   //std::string path_js = name_problem + "/user-script.js";
+   read_to_wxstring(path_js_str, user_script);
 
    templateHTML.Replace("<div id=\"user-generated-content\"></div>", "<div id=\"user-generated-content\">" + user_html + "</div>");
 

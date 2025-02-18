@@ -9,5 +9,5 @@ public:
 private:
   void OnExit(wxCommandEvent& event);
   void OnStartSession(wxCommandEvent& event);
-  void OnCreate(wxCommandEvent& event);
+  void OnCreateProblem(wxCommandEvent& event);
 };

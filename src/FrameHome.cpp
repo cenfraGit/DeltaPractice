@@ -1,5 +1,6 @@
-#include "home/FrameHome.hpp"
-#include "practice/FramePractice.hpp"
+#include "FrameHome.hpp"
+#include "FramePractice.hpp"
+#include "FrameCreateProblem.hpp"
 #include "ids_enum.hpp"
 
 #include <wx/filedlg.h>
@@ -16,7 +17,7 @@ FrameHome::FrameHome()
   
   wxMenu* menu_practice = new wxMenu;
   menu_practice->Append(ID_MENUBAR_PRACTICE_START, "&Load practice files...", "");
-  menu_practice->Append(ID_MENUBAR_PRACTICE_EDIT, "&Create...", "");
+  menu_practice->Append(ID_MENUBAR_PRACTICE_CREATE, "&Create problem...", "");
  
   wxMenuBar* menubar = new wxMenuBar;
   menubar->Append(menu_file, "&File");
@@ -29,6 +30,7 @@ FrameHome::FrameHome()
  
   Bind(wxEVT_MENU, &FrameHome::OnExit, this, ID_MENUBAR_FILE_EXIT);
   Bind(wxEVT_MENU, &FrameHome::OnStartSession, this, ID_MENUBAR_PRACTICE_START);
+  Bind(wxEVT_MENU, &FrameHome::OnCreateProblem, this, ID_MENUBAR_PRACTICE_CREATE);
 }
 
 void FrameHome::OnExit(wxCommandEvent &event) {
@@ -43,23 +45,13 @@ void FrameHome::OnStartSession(wxCommandEvent& event) {
   if (dlg_directory.ShowModal() == wxID_CANCEL)
     return;
 
-  //wxTextEntryDialog dlg_amount(this, "Amount:", "Enter problem amount:", "");
-
-  //if (dlg_amount.ShowModal() == wxID_CANCEL)
-  //  return;
-
-  //wxLogMessage("%s %s", dlg_directory.GetPath(), dlg_amount.GetValue());
-
-  //int amount = wxAtoi(dlg_amount.GetValue());
-
   wxFrame* frame_practice = new FramePractice(this, 
 					      dlg_directory.GetPath().ToStdString());
   frame_practice->Show(true);
 }
 
-void FrameHome::OnCreate(wxCommandEvent& event) {
-
-  
-  
+void FrameHome::OnCreateProblem(wxCommandEvent& event) {
+  wxFrame* frame_create_problem = new FrameCreateProblem(this);
+  frame_create_problem->Show();
 }
 

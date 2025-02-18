@@ -1,5 +1,4 @@
-#ifndef H_APPDELTA
-#define H_APPDELTA
+#pragma once
 
 #include "wx/wx.h"
 
@@ -9,5 +8,3 @@ public:
   bool OnInit() override;
 };
 
-
-#endif
