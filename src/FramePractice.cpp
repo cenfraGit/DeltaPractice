@@ -209,11 +209,11 @@ document.addEventListener("DOMContentLoaded", function () {
      )";
 
    
-   // prevent same problem twice, needs at least two problems.
+   // prevent same problem twice when two or more problems are available.
    int randomIndex;
    do { 
      randomIndex = dis(gen);
-   } while (randomIndex == last_directory_index);
+   } while (randomIndex == last_directory_index && directories.size() > 1);
    last_directory_index = randomIndex;
    std::string name_problem = directories[randomIndex];
 
