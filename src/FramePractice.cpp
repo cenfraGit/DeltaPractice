@@ -81,6 +81,8 @@ void FramePractice::GoToNextProblem() {
              <meta charset="utf-8">
              <meta http-equiv="x-ua-compatible" content="ie=edge">
              <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src=" https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js "></script>
+<link href=" https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css " rel="stylesheet">
          </head>
          <body>
              <div id="user-generated-content"></div>
@@ -104,12 +106,24 @@ document.addEventListener("DOMContentLoaded", function () {
      let firstInputFocused = false;
 
      window.add_variable = function (varName, varValue) {
-         var paragraphs = document.querySelectorAll('p');
-         paragraphs.forEach(function (paragraph) {
-             var regex = new RegExp(`\\[\\[${varName}\\]\\]`, 'g');
-             paragraph.innerHTML = paragraph.innerHTML.replace(regex, varValue);
-         });
-     };
+    var paragraphs = document.querySelectorAll('p');
+    var katexSpans = document.querySelectorAll('.__se__katex.katex[data-exp]');
+
+    paragraphs.forEach(function (paragraph) {
+        var regex = new RegExp(`\\[\\[${varName}\\]\\]`, 'g');
+        paragraph.innerHTML = paragraph.innerHTML.replace(regex, varValue);
+    });
+
+    katexSpans.forEach(function (span) {
+	//alert(span.getAttribute("data-exp"));
+        var regex = new RegExp(`\\[\\[${varName}\\]\\]`, 'g');
+        span.setAttribute('data-exp', span.getAttribute('data-exp').replace(regex, varValue));
+	//alert(span.getAttribute("data-exp"));
+	katex.render(span.getAttribute('data-exp'), span);
+
+	//renderMathInElement(document.getElementById('katex'))
+    });
+};
 
      window.add_question = function (questionString, answerString) {
          var container = document.getElementById('container');

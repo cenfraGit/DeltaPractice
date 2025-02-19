@@ -1,6 +1,10 @@
 #include "FrameCreateProblem.hpp"
 #include "ids_enum.hpp"
 #include <wx/wx.h>
+#include <wx/textdlg.h>
+#include <filesystem>
+#include <iostream>
+#include <fstream>
 
 FrameCreateProblem::FrameCreateProblem(wxFrame* parent)
   : wxFrame(parent, wxID_ANY, "Create problem...") {
@@ -65,9 +69,7 @@ FrameCreateProblem::FrameCreateProblem(wxFrame* parent)
         <textarea id="editor" placeholder="Type something..."></textarea>
     </div>
     <script>
-        
-        // Initialize SunEditor
-        const editor = SUNEDITOR.create(document.getElementById('editor'), {
+        window.editor = SUNEDITOR.create(document.getElementById('editor'), {
             plugins: [
                 'font',
                 'fontSize',
@@ -94,34 +96,33 @@ FrameCreateProblem::FrameCreateProblem(wxFrame* parent)
 )";
 
   wxString html_monaco_editor = R"(
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Monaco editor</title>
-<link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css">
-</head>
-<body>
-<div id="container" style="height:400px;border:1px solid black;"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/loader.min.js"></script>
-<script>
-require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs' }});
-require(["vs/editor/editor.main"], () => {
-  window.editor = monaco.editor.create(document.getElementById('container'), {
-    value: `placeholder`,
-    language: 'javascript',
-    theme: 'vs-dark',
-  });
-});
-
-document.addEventListener("DOMContentLoaded", (event) => {
-  alert(window.editor.getValue());
-});
-
-</script>
-</body>
+<html>
+    <style>
+    body {
+        overflow: hidden;
+    }
+    .monaco-ed {
+        height: 100%
+    }
+    </style>
+    <body>
+        <div class="monaco-ed" id="container"></div>
+    <script src="https://www.matrixlead.com/monaco-editor/min/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://www.matrixlead.com/monaco-editor/min/vs' }}) 
+        require(["vs/editor/editor.main"], function () {
+          window.editor = monaco.editor.create(document.getElementById('container'), {
+            value: '',
+            language: 'javascript',
+            theme: 'vs-dark',
+            minimap: { enabled: false },
+            automaticLayout: true,
+            scrollBeyondLastLine: false
+          });
+        });
+    </script>
+    </body>
 </html>
-
 )";
 
   /* ----- sizer holding two webviews ----- */
@@ -155,10 +156,52 @@ void FrameCreateProblem::OnExit(wxCommandEvent& event) {
 
 void FrameCreateProblem::OnSave(wxCommandEvent &event) {
 
-  // get save directory with name
+  /* ---------------- dir ---------------- */
 
-  // save suneditor contents to problem.html
+  wxDirDialog dlg_directory(NULL, "Where to save?", "",
+			    wxDD_DEFAULT_STYLE);
 
-  // save monaco editor contents to user-script.js
+  if (dlg_directory.ShowModal() == wxID_CANCEL)
+    return;
+
+  std::filesystem::path path_dir = dlg_directory.GetPath().ToStdString();
+
+  /* ------------ problem name ------------ */
+
+  wxTextEntryDialog dlg_name_problem(this, "Name of problem", "Name:");
+
+  if (dlg_name_problem.ShowModal() == wxID_CANCEL)
+    return;
+
+  /* ------------ build paths ------------ */
+
+  std::filesystem::path path_new = path_dir / dlg_name_problem.GetValue().ToStdString();
+
+  /* -------- change current path -------- */
+
+  bool t = std::filesystem::create_directory(path_new);
+  std::filesystem::current_path(path_new);
+
+  /* -------------- get data -------------- */
+
+  wxString result_suneditor;
+  t = m_web_editor_sun->RunScript("window.editor.getContents();", &result_suneditor);
+
+  wxString result_monaco;
+  m_web_editor_js->RunScript("window.editor.getValue();", &result_monaco);
+
+  /* ------------- save data ------------- */
+
+  std::ofstream out_problem_html("problem.html");
+  out_problem_html << result_suneditor << std::endl;
+  out_problem_html.close();
+
+  std::ofstream out_userscript_js("user-script.js");
+  out_userscript_js << result_monaco.ToStdString() << std::endl;
+  out_userscript_js.close();
+
+  wxLogMessage("saved");
+
+  Close(true);
   
 }
