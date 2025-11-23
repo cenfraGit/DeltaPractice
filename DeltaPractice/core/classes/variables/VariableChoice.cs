@@ -5,21 +5,9 @@ namespace core.classes.variables;
 /// <summary>
 /// Represents a random choice from an array of choices (number or strings).
 /// </summary>
-public class VariableChoice : IVariable
+public class VariableChoice : AVariable
 {
-    public VariableType Type { get; } = VariableType.Choice;
-
-    private object? _value;
-    public object Value
-    {
-        get
-        {
-            if (this._value is null)
-                Recalculate();
-            return _value;
-        }
-        set => _value = value;
-    }
+    // ----------- fields and properties ----------- //
 
     private object[] _choices;
     public object[] Choices
@@ -32,12 +20,16 @@ public class VariableChoice : IVariable
         }
     }
 
-    public VariableChoice(object[] choices)
+    // ---------------- constructors ---------------- //
+
+    public VariableChoice(object[] choices) : base(VariableType.Choice)
     {
         Choices = choices;
     }
 
-    public void Recalculate()
+    // ------------------ methods ------------------ //
+
+    public override void Recalculate()
     {
         Random random = new Random();
         int randomIdx = random.Next(0, Choices.Length);

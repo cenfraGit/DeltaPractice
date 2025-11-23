@@ -7,10 +7,13 @@ namespace core.classes.variables;
 /// </summary>
 public class VariableInteger : AVariableNumeric
 {
-    public override VariableType Type { get; } = VariableType.Integer;
+    // ---------------- constructors ---------------- //
 
-    public VariableInteger(float limitLower, float limitUpper) : base(limitLower, limitUpper)
+    public VariableInteger(float limitLower, float limitUpper) : base(VariableType.Integer,
+                                                                      limitLower, limitUpper)
     { }
+
+    // ------------------ methods ------------------ //
 
     public override void Recalculate()
     {

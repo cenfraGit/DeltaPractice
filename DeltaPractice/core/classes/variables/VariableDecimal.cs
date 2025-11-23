@@ -7,10 +7,13 @@ namespace core.classes.variables;
 /// </summary>
 public class VariableDecimal : AVariableNumeric
 {
-    public override VariableType Type { get; } = VariableType.Decimal;
+    // ---------------- constructors ---------------- //
 
-    public VariableDecimal(float limitLower, float limitUpper) : base(limitLower, limitUpper)
+    public VariableDecimal(float limitLower, float limitUpper) : base(VariableType.Decimal,
+                                                                      limitLower, limitUpper)
     { }
+
+    // ------------------ methods ------------------ //
 
     public override void Recalculate()
     {

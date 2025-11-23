@@ -3,25 +3,18 @@ using System.Numerics;
 
 namespace core.classes.variables;
 
+// --------------------------------------------------------------------------------
+// AVariable
+// --------------------------------------------------------------------------------
+
 /// <summary>
-/// Represents a random numeric value between the range of LowerLimit and UpperLimit.
-/// Holds shared logic for integer and decimal variables.
-/// Note: lower and upper limits will be cast to int when using the VariableInteger subclass.
+/// Holds shared logic for all variables.
 /// </summary>
-public abstract class AVariableNumeric : IVariable
+public abstract class AVariable : IVariable
 {
-    // --------------------------------------------------------------------------------
-    // fields
-    // --------------------------------------------------------------------------------
+    // ----------- fields and properties ----------- //
 
-    private float _limitLower;
-    private float _limitUpper;
-
-    // --------------------------------------------------------------------------------
-    // properties
-    // --------------------------------------------------------------------------------
-
-    public abstract VariableType Type { get; }
+    public VariableType Type { get; init; }
 
     private object? _value;
     public object Value
@@ -32,8 +25,39 @@ public abstract class AVariableNumeric : IVariable
                 Recalculate();
             return _value;
         }
-        protected set => _value = value;
+        set => _value = value;
     }
+
+    // ---------------- constructors ---------------- //
+
+    public AVariable(VariableType variableType)
+    {
+        Type = variableType;
+    }
+
+    // ------------------- metods ------------------- //
+
+    /// <summary>
+    /// Recalculates (and reassigns) the Value of the variable.
+    /// </summary>
+    public abstract void Recalculate();
+}
+
+// --------------------------------------------------------------------------------
+// AVariableNumeric
+// --------------------------------------------------------------------------------
+
+/// <summary>
+/// Represents a random numeric value between the range of LowerLimit and UpperLimit.
+/// Holds shared logic for integer and decimal variables.
+/// Note: lower and upper limits will be cast to int when using the VariableInteger subclass.
+/// </summary>
+public abstract class AVariableNumeric : AVariable
+{
+    // ----------- fields and properties ----------- //
+
+    private float _limitLower;
+    private float _limitUpper;
 
     public float LimitLower
     {
@@ -63,11 +87,10 @@ public abstract class AVariableNumeric : IVariable
         }
     }
 
-    // --------------------------------------------------------------------------------
-    // constructor
-    // --------------------------------------------------------------------------------
+    // ---------------- constructors ---------------- //
 
-    protected AVariableNumeric(float limitLower, float limitUpper)
+    protected AVariableNumeric(VariableType variableType, float limitLower, float limitUpper)
+        : base(variableType)
     {
         ArgumentNullException.ThrowIfNull(limitLower);
         ArgumentNullException.ThrowIfNull(limitUpper);
@@ -80,12 +103,7 @@ public abstract class AVariableNumeric : IVariable
         this.LimitUpper = limitUpper;
     }
 
-    // --------------------------------------------------------------------------------
-    // methods
-    // --------------------------------------------------------------------------------
+    // ------------------ methods ------------------ //
 
-    /// <summary>
-    /// Recalculates the Value of the variable.
-    /// </summary>
-    public abstract void Recalculate();
+    public abstract override void Recalculate();
 }
