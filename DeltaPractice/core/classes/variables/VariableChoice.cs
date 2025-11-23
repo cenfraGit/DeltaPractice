@@ -5,8 +5,10 @@ namespace core.classes.variables;
 /// <summary>
 /// Represents a random choice from an array of choices (number or strings).
 /// </summary>
-public class VariableChoice : IVariable<object>
+public class VariableChoice : IVariable
 {
+    public VariableType Type { get; } = VariableType.Choice;
+
     private object? _value;
     public object Value
     {
@@ -18,7 +20,7 @@ public class VariableChoice : IVariable<object>
         }
         set => _value = value;
     }
-    
+
     private object[] _choices;
     public object[] Choices
     {
@@ -29,12 +31,12 @@ public class VariableChoice : IVariable<object>
             this._choices = value;
         }
     }
-    
+
     public VariableChoice(object[] choices)
     {
         Choices = choices;
     }
-    
+
     public void Recalculate()
     {
         Random random = new Random();
