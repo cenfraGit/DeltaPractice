@@ -20,8 +20,18 @@ public abstract class AVariableNumeric<T> : IVariable<T> where T : INumber<T>
     // --------------------------------------------------------------------------------
     // properties
     // --------------------------------------------------------------------------------
-    
-    public T Value { get; set; }
+
+    private T? _value;
+    public T? Value
+    {
+        get
+        {
+            if (this._value is null)
+                Recalculate();
+            return _value;
+        }
+        set => _value = value;
+    }
     
     public float LimitLower
     {
