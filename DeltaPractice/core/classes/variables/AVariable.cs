@@ -17,14 +17,9 @@ public abstract class AVariable : IVariable
     public VariableType Type { get; init; }
 
     private object? _value;
-    public object Value
+    public object? Value
     {
-        get
-        {
-            if (this._value is null)
-                Recalculate();
-            return _value;
-        }
+        get => _value;
         set => _value = value;
     }
 

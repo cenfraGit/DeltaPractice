@@ -14,7 +14,7 @@ public enum VariableType
 /// </summary>
 public interface IVariable
 {
-    object Value { get; }
+    object? Value { get; }
     VariableType Type { get; }
     void Recalculate();
 }
