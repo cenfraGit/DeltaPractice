@@ -12,9 +12,8 @@ public enum VariableType
 /// generate dynamic questions that hold different answers based on the
 /// random value of the variable.
 /// </summary>
-public interface IVariable
+public interface IVariable : IRecalculable
 {
     object? Value { get; }
     VariableType Type { get; }
-    void Recalculate();
 }

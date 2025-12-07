@@ -1,0 +1,33 @@
+﻿<Window x:Class="MainApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MainApp"
+        mc:Ignorable="d"
+        Title="DeltaPractice" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Preferences"/>
+                <Separator/>
+                <MenuItem Header="_Exit"/>
+            </MenuItem>
+            <MenuItem Header="_Practice">
+                <MenuItem Header="_Start practice session..." Command="{Binding OpenDialogCommand}"/>
+                <MenuItem Header="_Practice workflows..."/>
+                <MenuItem Header="_Edit practice files..."/>
+                <Separator/>
+                <MenuItem Header="_See stats"/>
+            </MenuItem>
+            <MenuItem Header="_About">
+                <MenuItem Header="_Help"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel Background="LightGray">
+            
+
+        </StackPanel>
+    </DockPanel>
+
+</Window>
