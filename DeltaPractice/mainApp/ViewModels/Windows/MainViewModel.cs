@@ -1,19 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using core.classes;
 using core.utils.files;
-using mainApp.Services.Dialogs;
+using mainApp.Models.Services;
 using Microsoft.Win32;
 
 namespace mainApp.ViewModels.Windows;
 
-public partial class MainViewModel
+public partial class MainViewModel(IDialogService dialogService)
 {
-  private readonly IDialogService _dialogService;
-
-  public MainViewModel(IDialogService dialogService)
-  {
-    _dialogService = dialogService;
-  }
+  private readonly IDialogService _dialogService = dialogService;
 
   [RelayCommand]
   private void OnOpenDialog()
@@ -33,6 +28,6 @@ public partial class MainViewModel
   private void OpenPracticeWindow(Practice practice)
   {
     var practiceViewModel = new PracticeViewModel(practice);
-    _dialogService.ShowPractice(practiceViewModel);
+    _dialogService.ShowDialog(practiceViewModel);
   }
 }
