@@ -55,8 +55,30 @@
     
     
 
-    <DockPanel LastChildFill="False" VerticalAlignment="Stretch">
-        
+    <DockPanel LastChildFill="True" VerticalAlignment="Stretch">
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="Correct:" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding SBCorrect}" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Incorrect:" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding SBIncorrect}" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+
+            </StatusBarItem>
+            <!--<StatusBarItem DockPanel.Dock="Right">
+        <ProgressBar Width="100" Height="15" Value="50" />
+    </StatusBarItem>-->
+        </StatusBar>
+
         <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
 
             <StackPanel Margin="20">
@@ -73,6 +95,12 @@
                         <DataTemplate DataType="{x:Type local:ContextTextViewModel}">
                             <StackPanel Margin="0,10,0,10">
                                 <TextBlock Text="{Binding Value}" FontWeight="Normal"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type local:ContextImageViewModel}">
+                            <StackPanel Margin="0,10,0,10">
+                                <Image Source="{Binding Image}" Stretch="Uniform" MaxWidth="600"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.Resources>
@@ -131,27 +159,7 @@
         </ScrollViewer>
 
 
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem>
-                <TextBlock Text="Correct:" />
-            </StatusBarItem>
-            <StatusBarItem>
-                <TextBlock Text="{Binding SBCorrect}" />
-            </StatusBarItem>
-            <StatusBarItem>
-                <TextBlock Text="Incorrect:" />
-            </StatusBarItem>
-            <StatusBarItem>
-                <TextBlock Text="{Binding SBIncorrect}" />
-            </StatusBarItem>
-            <Separator />
-            <StatusBarItem>
-                
-            </StatusBarItem>
-            <!--<StatusBarItem DockPanel.Dock="Right">
-                <ProgressBar Width="100" Height="15" Value="50" />
-            </StatusBarItem>-->
-        </StatusBar>
+        
     </DockPanel>
 
     

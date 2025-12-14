@@ -88,12 +88,18 @@ public class FileUtils
     foreach (var c in xmlContextData)
     {
       IRecalculable element;
+      XAttribute? valueAttr;
       switch (c.Name.ToString())
       {
         case "Text":
-          XAttribute? valueAttr = c.Attribute("Value");
+          valueAttr = c.Attribute("Value");
           if (valueAttr is null) continue;
           element = new ContextText(Variables, valueAttr.Value);
+          break;
+        case "Image":
+          valueAttr = c.Attribute("Value");
+          if (valueAttr is null) continue;
+          element = new ContextImage(valueAttr.Value);
           break;
         default:
           throw new Exception("Invalid context element.");
@@ -186,4 +192,27 @@ public class FileUtils
     ClearTempFiles();
     return practiceData;
   }
+
+  // --------------------------------------------------------------------------------
+  // images
+  // --------------------------------------------------------------------------------
+
+  public static string SerializeImage(string pathImage)
+  {
+    if (File.Exists(pathImage))
+    {
+      try
+      {
+        byte[] imageBytes = File.ReadAllBytes(pathImage);
+        return Convert.ToBase64String(imageBytes);
+      }
+      catch (Exception ex)
+      {
+        // log? rethrow?
+        return null;
+      }
+    }
+    return null;
+  }
+
 }

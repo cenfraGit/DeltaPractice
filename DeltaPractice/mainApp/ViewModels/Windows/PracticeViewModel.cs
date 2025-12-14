@@ -80,6 +80,8 @@ public partial class PracticeViewModel : ObservableObject
     {
       if (ctxItem is ContextText ctxItemText)
         ContextViewModels.Add(new ContextTextViewModel(ctxItemText));
+      if (ctxItem is ContextImage ctxItemImage)
+        ContextViewModels.Add(new ContextImageViewModel(ctxItemImage));
     }
 
     // add question viewmodels
