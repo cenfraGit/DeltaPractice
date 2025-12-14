@@ -133,13 +133,13 @@ public partial class PracticeViewModel : ObservableObject
   [RelayCommand]
   public void OnLoadNextProblem()
   {
-    ButtonNextProblemVisibility = Visibility.Hidden;
     LoadNewProblem();
   }
 
   private void LoadNewProblem()
   {
     IsChecked = false;
+    ButtonNextProblemVisibility = Visibility.Hidden;
     SetProblem(this.Practice.GetProblem());
   }
 
