@@ -12,12 +12,5 @@ public partial class ContextTextViewModel : ObservableObject
   {
     ContextText = contextText;
     Value = ContextText.Value;
-    //this.Recalculate();
   }
-
-  //public void Recalculate()
-  //{
-  //  ContextText.Recalculate();
-  //  Text = ContextText.Value;
-  //}
 }
