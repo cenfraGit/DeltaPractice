@@ -22,6 +22,8 @@ public class Problem : IRecalculable
 
   public void Recalculate()
   {
-
+    Variables.Recalculate();
+    Context.Recalculate();
+    Questions.Recalculate();
   }
 }

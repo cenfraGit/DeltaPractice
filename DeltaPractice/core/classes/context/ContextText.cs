@@ -5,17 +5,22 @@ namespace core.classes.context;
 
 public class ContextText : IRecalculable
 {
+
+  private string unformattedText;
+
   public ContainerVariables Variables { get; set; }
   public string Value { get; set; }
 
   public ContextText(ContainerVariables variables, string text)
   {
+    this.unformattedText = text;
+
     this.Variables = variables;
     this.Value = text;
   }
 
   public void Recalculate()
   {
-    TextUtils.ReplaceVariables(Variables, Value);
+    Value = TextUtils.ReplaceVariables(Variables, unformattedText);
   }
 }

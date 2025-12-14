@@ -17,7 +17,7 @@ public abstract class AQuestion
 
     public class ScriptGlobals
     {
-        public object Result { get; set; }
+        public object? result { get; set; }
     }
 
     public Assembly globalsAssembly;
@@ -29,11 +29,11 @@ public abstract class AQuestion
     public ContainerVariables Variables { get; set; }
 
     public Dictionary<string, string> AnswersScripts { get; set; }
-    public Dictionary<string, object> AnswersCorrect { get; set; } = new();
-    public Dictionary<string, object> AnswersUser    { get; set; } = new();
+    public Dictionary<string, object> AnswersCorrect { get; set; } = [];
+    public Dictionary<string, object> AnswersUser    { get; set; } = [];
 
     private string _textUnformatted;
-    public string Text
+    public virtual string Text
     {
         get => TextUtils.ReplaceVariables(Variables, _textUnformatted);
         set
@@ -54,7 +54,7 @@ public abstract class AQuestion
         this.AnswersScripts = answers;
     }
 
-    public ScriptState<object> RunScript(string code,
+    public static ScriptState<object> RunScript(string code,
                                          ScriptOptions options,
                                          ScriptGlobals globals)
     {
@@ -90,11 +90,10 @@ public abstract class AQuestion
             string newText = TextUtils.ReplaceVariables(Variables, value);
 
             // run the script to produce the result value
-            var state = RunScript(newText, this.scriptOptions,
-                                  this.scriptGlobals);
+            var state = RunScript(newText, this.scriptOptions, this.scriptGlobals);
 
             // fetch result variable
-            AnswersCorrect.Add(key, this.scriptGlobals.Result);
+            AnswersCorrect.Add(key, this.scriptGlobals.result);
 
         }
     }

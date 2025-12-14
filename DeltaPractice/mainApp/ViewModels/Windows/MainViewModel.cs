@@ -2,8 +2,6 @@
 using core.classes;
 using core.utils.files;
 using mainApp.Services.Dialogs;
-using mainApp.ViewModels.Dialogs;
-using mainApp.Views.Windows;
 using Microsoft.Win32;
 
 namespace mainApp.ViewModels.Windows;
@@ -20,25 +18,21 @@ public partial class MainViewModel
   [RelayCommand]
   private void OnOpenDialog()
   {
-    //var newItemViewModel = new NewItemDialogViewModel();
-    //_dialogService.ShowDialog(newItemViewModel);
     var openDialog = new OpenFileDialog
     {
-      Filter = "Prob files (*.prob)|*.xml",
+      Filter = "Practice files (*.prac)|*.prac",
     };
 
-    bool? result = openDialog.ShowDialog();
-
-    if (result == null || result == false) return;
-
-
-
-
+    if (openDialog.ShowDialog() == true)
+    {
+      Practice practiceData = FileUtils.ReadPracFile(openDialog.FileName);
+      OpenPracticeWindow(practiceData);
+    }
   }
 
-  private void OpenProblemWindow(Problem problem)
+  private void OpenPracticeWindow(Practice practice)
   {
-    var problemWindow = new ProblemWindow();
-    problemWindow.Show();
+    var practiceViewModel = new PracticeViewModel(practice);
+    _dialogService.ShowPractice(practiceViewModel);
   }
 }

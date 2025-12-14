@@ -5,7 +5,7 @@
     <Compile Update="Views\Dialogs\NewItemDialogWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Windows\ProblemWindow.xaml.cs">
+    <Compile Update="Views\Windows\PracticeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -13,7 +13,7 @@
     <Page Update="Views\Dialogs\NewItemDialogWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Windows\ProblemWindow.xaml">
+    <Page Update="Views\Windows\PracticeWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
