@@ -16,7 +16,9 @@
             <MenuItem Header="_Practice">
                 <MenuItem Header="_Start practice session..." Command="{Binding OpenDialogCommand}"/>
                 <MenuItem Header="_Practice workflows..."/>
-                <MenuItem Header="_Edit practice files..."/>
+                <Separator/>
+                <MenuItem Header="_Create practice file..." Command="{Binding OpenCreatePracticeCommand}"/>
+                <MenuItem Header="_Edit practice file..." Command="{Binding OpenEditPracticeCommand}"/>
                 <Separator/>
                 <MenuItem Header="_See stats"/>
             </MenuItem>

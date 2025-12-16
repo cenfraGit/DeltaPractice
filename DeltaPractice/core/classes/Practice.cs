@@ -15,7 +15,7 @@ public class Practice
   public int CurrentAmount { get { return Correct + Incorrect; } }
   public void Reset() { Correct = 0; Incorrect = 0; }
 
-  Dictionary<string, Problem> Problems { get; set; } = [];
+  public Dictionary<string, Problem> Problems { get; set; } = [];
 
   public void AddProblem(string name, Problem problem)
   {

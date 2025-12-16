@@ -59,6 +59,7 @@ public partial class PracticeViewModel : ObservableObject
 
     // set up timer. revert to unknown state after interval
     _flashTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(0.8) };
+    // need to unsubscribe before closing
     _flashTimer.Tick += (sender, e) =>
     {
       ProblemStatus = AnswerStatus.Unknown;

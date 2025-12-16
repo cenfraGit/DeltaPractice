@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using mainApp.Models.Services;
+using mainApp.ViewModels.Dialogs;
 using mainApp.ViewModels.Windows;
+using mainApp.Views.Dialogs;
 using mainApp.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,8 @@ public partial class App : Application
 
     IDialogService dialogService = serviceProvider.GetRequiredService<IDialogService>();
     dialogService.RegisterDialog<PracticeViewModel, PracticeWindow>();
+    dialogService.RegisterDialog<CreatePracticeViewModel, CreatePracticeDialog>();
+    dialogService.RegisterDialog<CreateProblemViewModel, CreateProblemDialog>();
 
     // create mainWindow viewmodel and display view
 

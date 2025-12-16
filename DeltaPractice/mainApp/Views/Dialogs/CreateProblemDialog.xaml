@@ -1,0 +1,106 @@
+﻿<Window x:Class="mainApp.Views.Dialogs.CreateProblemDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mainApp.ViewModels.Windows"
+        xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
+        mc:Ignorable="d"
+        Title="CreateProblemDialog" Height="450" Width="800">
+
+    <DockPanel>
+        <Ribbon DockPanel.Dock="Top" Margin="0,-22,0,0">
+
+                    <RibbonTab x:Name="rbnTab1" Header="Tab1">
+                            <RibbonGroup x:Name="rbnGr1" Header="General">
+                                <RibbonButton x:Name="btnRibbon1" Label="Save"/>
+                                <RibbonButton x:Name="btnRibbon2" Label="Open"/>
+                            </RibbonGroup>
+                            <RibbonGroup x:Name="rbnGr2" Header="New group">
+                                <RibbonButton x:Name="btnRibbon3" Label="Font"/>
+                                <RibbonButton x:Name="btnRibbon4" Label="Delete"/>
+                            </RibbonGroup>
+                        </RibbonTab>
+        </Ribbon>
+
+        <ScrollViewer DockPanel.Dock="Bottom" VerticalScrollBarVisibility="Auto">
+
+            <StackPanel Margin="20">
+
+                <ItemsControl ItemsSource="{Binding ContextViewModels}" IsTabStop="False">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.Resources>
+                        <DataTemplate DataType="{x:Type local:ContextTextViewModel}">
+                            <StackPanel Margin="0,10,0,10">
+                                <TextBlock Text="{Binding Value}" FontWeight="Normal"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type local:ContextImageViewModel}">
+                            <StackPanel Margin="0,10,0,10">
+                                <Image Source="{Binding Image}" Stretch="Uniform" MaxWidth="600"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
+
+                </ItemsControl>
+
+                <ItemsControl ItemsSource="{Binding QuestionViewModels}" IsTabStop="False">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.Resources>
+                        <DataTemplate DataType="{x:Type local:QuestionTextBoxViewModel}">
+                            <StackPanel Margin="0,10,0,10">
+
+                                <ItemsControl ItemsSource="{Binding QuestionItems}" IsTabStop="False">
+
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+
+                                    <ItemsControl.Resources>
+                                        <DataTemplate DataType="{x:Type local:QuestionTextBoxViewModelTextPart}">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Text}" FontWeight="Normal"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+
+                                        <DataTemplate DataType="{x:Type local:QuestionTextBoxViewModelBoxInput}">
+                                            <StackPanel>
+                                                <TextBox Width="70" Text="{Binding Text}">
+                                                </TextBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.Resources>
+                                </ItemsControl>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
+
+                </ItemsControl>
+
+                <Button Content="Submit" Command="{Binding CheckCurrentProblemCommand}" 
+                Margin="0,20,0,0" Width="150" HorizontalAlignment="Center" IsTabStop="False"/>
+                <Button Content="Next Problem" Command="{Binding LoadNextProblemCommand}" 
+                Margin="0,20,0,0" Width="150" HorizontalAlignment="Center" IsTabStop="False" 
+                Visibility="{Binding ButtonNextProblemVisibility}"/>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+
+</Window>

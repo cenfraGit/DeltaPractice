@@ -2,9 +2,9 @@
 
 namespace mainApp.Views.Dialogs
 {
-  public partial class NewItemDialogWindow : Window
+  public partial class CreatePracticeDialog : Window
   {
-    public NewItemDialogWindow()
+    public CreatePracticeDialog()
     {
       InitializeComponent();
     }
